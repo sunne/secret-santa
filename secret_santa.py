@@ -162,7 +162,7 @@ call with the --send argument:
             message_id = '<%s@%s>' % (str(time.time())+str(random.random()), socket.gethostname())
             frm = config['FROM']
             to = pair.giver.email
-            subject = config['SUBJECT'].format(santa=pair.giver.name, santee=pair.reciever.name)
+            subject = config['SUBJECT'].format(santa=pair.giver.name, santee=pair.reciever.name).encode('utf-8')
             body = (HEADER+config['MESSAGE']).format(
                 date=date, 
                 message_id=message_id, 
@@ -171,7 +171,7 @@ call with the --send argument:
                 subject=subject,
                 santa=pair.giver.name,
                 santee=pair.reciever.name,
-            )
+            ).encode('utf-8')
             if send:
                 result = server.sendmail(frm, [to], body)
                 print "Emailed %s <%s>" % (pair.giver.name, to)
